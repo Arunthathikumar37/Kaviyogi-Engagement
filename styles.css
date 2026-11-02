@@ -935,3 +935,62 @@ body.footer-in-view .couple-throughout {
   z-index: 21;
   pointer-events: auto;
 }
+
+.event-time {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.12em 0.28em;
+  vertical-align: baseline;
+}
+.time-slot {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.12em;
+}
+.time-digits {
+  font-size: clamp(26px, 5.2vw, 38px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: inherit;
+}
+.time-meridiem {
+  font-size: clamp(11px, 2.1vw, 14px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  opacity: 0.88;
+}
+.time-sep {
+  font-size: clamp(22px, 4.2vw, 32px);
+  font-weight: 600;
+  line-height: 1;
+  opacity: 0.75;
+  margin: 0 0.08em;
+}
+.date-muhurtham {
+  display: block;
+  margin-top: 0.35em;
+  line-height: 1.35;
+}
+.date-muhurtham .event-time {
+  margin-top: 0.15em;
+}
+.venue-details .muhurtham-time {
+  display: block;
+  font-weight: 700;
+  margin-top: 0.2em;
+}
+body.ta .time-meridiem {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: clamp(12px, 2.4vw, 15px);
+}
+@media (max-width: 760px) {
+  .time-digits {
+    font-size: clamp(24px, 6.8vw, 32px);
+  }
+}
