@@ -1,0 +1,9 @@
+{
+  "name": "sivaroshan-weds-kirushika-e-invitation",
+  "version": "1.0.0",
+  "description": "Wedding invitation website of Sivaroshan and Kirushika",
+  "scripts": {
+    "start": "npx serve . -l 3000",
+    "dev": "python3 -m http.server 3000"
+  }
+}

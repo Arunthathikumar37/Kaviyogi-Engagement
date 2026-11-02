@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#291507" />
+  <meta name="description" content="The engagement invitation of Murugan and Kaviyam — a celebration of love, family and tradition." />
+  <title>Murugan &amp; Kaviyam — Engagement Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Arima:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Italianno&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+</head>
+<body class="intro-lock">
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div class="global-language" id="globalLanguage">
+    <button id="languageToggle" class="language-toggle" type="button" aria-label="Switch language">
+      <span class="lang-en">English</span><span class="language-divider">|</span><span class="lang-ta">தமிழ்</span>
+    </button>
+  </div>
+
+  <!-- Opening screen. Click to open triggers the two-panel split and white fade. -->
+  <section class="opening-screen" id="openingScreen" aria-label="Engagement invitation opening">
+    <div class="opening-background" aria-hidden="true"></div>
+    <div class="door-leaf door-left" aria-hidden="true"></div>
+    <div class="door-leaf door-right" aria-hidden="true"></div>
+    <div class="opening-rice-layer" id="openingRiceLayer" aria-hidden="true"></div>
+    <div class="opening-vignette" aria-hidden="true"></div>
+    <div class="opening-content" id="openingContent">
+      <div class="opening-names">
+        <h1 aria-label="Murugan and Kaviyam">
+          <span class="opening-name-text" id="openingGroom">Murugan</span>
+          <span class="opening-heart" aria-hidden="true">♥</span>
+          <span class="opening-name-text" id="openingBride">Kaviyam</span>
+        </h1>
+      </div>
+      <button class="open-button" id="openInvitation" type="button">
+        <span data-i18n="clickToOpen">CLICK TO OPEN</span>
+      </button>
+    </div>
+    <div class="opening-bottom-note" data-i18n="openingBottom">A beautiful beginning, blessed by tradition</div>
+    <img class="couple-sticker" src="assets/couple-sticker.webp" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+    <div class="white-fade" id="whiteFade" aria-hidden="true"></div>
+  </section>
+
+  <main id="invitationContent" aria-hidden="true" inert>
+    <!-- SECTION 1 -->
+    <section class="invitation-section section-one" id="section1" aria-labelledby="sectionOneTitle">
+      <div class="section-shade"></div>
+      <div class="content-shell section-one-shell">
+        <div class="eyebrow ornament-line" data-i18n="sectionOneEyebrow">Together with our families</div>
+        <h2 id="sectionOneTitle" class="section-title" data-i18n="sectionOneTitle">Our Engagement Celebration</h2>
+        <div class="family-card glass-card">
+          <div class="family-side">
+            <div class="family-label" data-i18n="groomSide">The beloved son of</div>
+            <div class="parents-name" id="groomParents">Mr. Elumalai &amp; Mrs. Dhanalakshmi</div>
+            <div class="tamil-family-honorific" id="groomTamilHonorific" hidden>திருவளர் செல்வன்</div>
+            <div class="fine-divider"><span>✦</span></div>
+            <div class="couple-name-display" id="sectionGroom">Murugan</div>
+            <div class="nickname" id="sectionGroomNick">(Yokesh)</div>
+          </div>
+          <div class="family-separator section-heart" aria-hidden="true"><span>♥</span></div>
+          <div class="family-side">
+            <div class="family-label" data-i18n="brideSide">The beloved daughter of</div>
+            <div class="parents-name" id="brideParents">Mr. Shanmugam &amp; Mrs. Nalini</div>
+            <div class="tamil-family-honorific" id="brideTamilHonorific" hidden>திருவளர் செல்வி</div>
+            <div class="fine-divider"><span>✦</span></div>
+            <div class="couple-name-display" id="sectionBride">Kaviyam</div>
+            <div class="nickname" id="sectionBrideNick">(Kaviya)</div>
+          </div>
+        </div>
+        <p class="family-blessing" data-i18n="familyBlessing">With the blessings of our elders, two hearts begin a lifetime together.</p>
+        <a class="scroll-cue" href="#section2" aria-label="Scroll to explore invitation">
+          <span data-i18n="scrollExplore">SCROLL TO EXPLORE</span><span class="scroll-arrow" aria-hidden="true">⌄</span>
+        </a>
+      </div>
+      <div class="jasmine-layer" id="jasmineLayer" aria-hidden="true"></div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="invitation-section section-two" id="section2" aria-labelledby="sectionTwoTitle">
+      <div class="section-shade shade-gold"></div>
+      <div class="content-shell date-shell">
+        <div class="eyebrow ornament-line" data-i18n="dateEyebrow">A moment to remember</div>
+        <h2 class="section-title" id="sectionTwoTitle" data-i18n="dateTitle">Our Engagement Date</h2>
+        <div class="scratch-card-wrap">
+          <div class="scratch-card" id="scratchCard">
+            <div class="revealed-date" id="revealedDate" aria-live="polite">
+              <span class="revealed-kicker" data-i18n="revealedKicker">PLEASE SAVE THE DATE</span>
+              <strong id="dateMain">15 November 2026</strong>
+              <span id="dateWeekday">Sunday</span>
+              <span class="date-muhurtham" id="dateMuhurtham" data-i18n="dateMuhurtham">Auspicious time · 9:00 AM – 11:00 AM</span>
+            </div>
+            <canvas id="scratchCanvas" aria-label="Scratch this golden panel to reveal the engagement date"></canvas>
+            <div class="scratch-instruction" id="scratchInstruction" aria-hidden="true">
+              <strong data-i18n="scratchToReveal">SCRATCH HERE</strong>
+            </div>
+          </div>
+
+          <p class="section-intro date-instruction-below" data-i18n="dateIntro">Gently scratch the golden surface to reveal our special day.</p>
+        </div>
+        <div class="countdown-block">
+          <div class="countdown-heading" data-i18n="countdownTitle">Our Special Day In</div>
+          <div class="countdown-grid" aria-label="Engagement countdown">
+            <div class="count-cell"><strong id="countDays">--</strong><span data-i18n="days">Days</span></div>
+            <div class="count-cell"><strong id="countHours">--</strong><span data-i18n="hours">Hours</span></div>
+            <div class="count-cell"><strong id="countMinutes">--</strong><span data-i18n="minutes">Minutes</span></div>
+            <div class="count-cell"><strong id="countSeconds">--</strong><span data-i18n="seconds">Seconds</span></div>
+          </div>
+          <p class="countdown-footnote" data-i18n="countdownFootnote" hidden></p>
+        </div>
+      </div>
+      <div class="rice-layer" id="riceLayer" aria-hidden="true"></div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="invitation-section section-three" id="section3" aria-labelledby="sectionThreeTitle">
+      <div class="section-shade shade-forest"></div>
+      <div class="content-shell venue-shell">
+        <div class="glass-heading">
+          <div class="eyebrow" data-i18n="venueEyebrow">Join us for the celebration</div>
+          <h2 class="section-title" id="sectionThreeTitle" data-i18n="venueTitle">Engagement Venue &amp; Directions</h2>
+        </div>
+        <div class="venue-card glass-card">
+          <img class="venue-arch-cutout" src="assets/venue-arch-cutout.webp" alt="Cropped temple mandapam arch with traditional decorations" loading="lazy" />
+          <h3 data-i18n="venueName">Bajanai Kovil</h3>
+          <p class="venue-address" data-i18n="venueAddress">Issukkazhi, Katteri,<br />Thiruvannamalai District</p>
+          <div class="venue-details">
+            <div><span class="detail-label" data-i18n="weddingDateLabel">Engagement date</span><strong data-i18n="weddingDateValue">Sunday, 15 November 2026</strong></div>
+            <div><span class="detail-label" data-i18n="muhurthamLabel">Auspicious time</span><strong>09:00 AM – 11:00 AM</strong></div>
+            <div><span class="detail-label" data-i18n="lunchLabel">Occasion</span><strong data-i18n="lunchValue">Engagement ceremony</strong></div>
+          </div>
+          <div class="venue-actions">
+            <a class="gold-button" id="openMapLink" href="https://www.google.com/maps/search/?api=1&amp;query=Bajanai+Kovil+Issukkazhi+Katteri+Thiruvannamalai" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">⌖</span><span data-i18n="openMap">OPEN MAP</span></a>
+            <button class="outline-button" id="addToCalendar" type="button"><span aria-hidden="true">▦</span><span data-i18n="addCalendar">ADD TO CALENDAR</span></button>
+          </div>
+        </div>
+        <p class="venue-note" data-i18n="venueNote">We look forward to celebrating this blessed day with you.</p>
+      </div>
+    </section>
+
+    <!-- FINAL FOOTER -->
+    <footer class="invitation-footer" id="shareSection" aria-labelledby="footerTitle">
+      <div class="footer-inner">
+        <h2 id="footerTitle" data-i18n="footerTitle">With Love</h2>
+        <div class="footer-couple-names" aria-label="Murugan and Kaviyam">
+          <span id="footerGroomName">Murugan</span>
+          <span class="footer-heart" aria-hidden="true">♥</span>
+          <span id="footerBrideName">Kaviyam</span>
+        </div>
+        <p class="footer-made-love" data-i18n="madeWithLove">Made with love</p>
+      </div>
+    </footer>
+  </main>
+
+  <img class="couple-throughout" src="assets/couple-sticker.webp" alt="" aria-hidden="true" decoding="async" />
+
+  <div class="global-petals" id="globalPetals" aria-hidden="true"></div>
+  <audio id="backgroundMusic" preload="none" loop>
+    <source src="assets/wedding-music-loop-1045-1210.mp3" type="audio/mpeg" />
+  </audio>
+  <button class="floating-music" id="musicToggle" type="button" aria-pressed="false" aria-label="Turn background music on"><span class="music-icon" aria-hidden="true">♫</span><span class="music-label" data-i18n="musicOff">MUSIC · OFF</span><span class="music-state" aria-hidden="true">●</span></button>
+</body>
+</html>

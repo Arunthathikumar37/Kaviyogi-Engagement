@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#291507" />
+  <title>Private Wedding Responses | Sivaroshan &amp; Kirushika</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+  <main class="admin-page">
+    <header class="admin-header">
+      <a href="index.html" class="admin-back">← <span>Wedding invitation</span></a>
+      <span class="admin-lock">♧ PRIVATE FAMILY ACCESS</span>
+    </header>
+    <section class="admin-card" aria-labelledby="adminTitle">
+      <div class="admin-ornament">✦ ❧ ✦</div>
+      <p class="admin-eyebrow">Sivaroshan &amp; Kirushika</p>
+      <h1 id="adminTitle">Family Access</h1>
+      <p class="admin-lede">Enter the family access password to open the wedding responses spreadsheet.</p>
+      <form id="familyAccessForm" class="admin-login-form" style="max-width:520px" novalidate>
+        <label for="familyPassword">Family Access Password</label>
+        <input id="familyPassword" name="familyPassword" type="password" autocomplete="current-password" placeholder="Enter password" required aria-describedby="familyAccessFeedback" />
+        <button class="submit-button" type="submit" style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <span>UNLOCK FAMILY ACCESS</span><span aria-hidden="true">↗</span>
+        </button>
+        <p id="familyAccessFeedback" class="admin-feedback" role="alert" aria-live="polite" hidden></p>
+      </form>
+      <div id="familySheetAccess" class="family-sheet-access" hidden>
+        <div class="setup-status" data-state="ready" role="status">
+          <strong>Access granted</strong><br />The wedding responses spreadsheet is ready to open.
+        </div>
+        <a class="submit-button" href="https://docs.google.com/spreadsheets/d/1gG31UvSpCOp_oM66lT_FsXpBm-A4uiXnkkrVLHi51y0/edit?gid=1393123513#gid=1393123513" target="_blank" rel="noopener noreferrer" style="display:flex;text-decoration:none;align-items:center;justify-content:space-between;gap:16px">
+          <span>OPEN GOOGLE SHEET</span><span aria-hidden="true">↗</span>
+        </a>
+        <p class="admin-lede" style="margin:12px auto 0">To export responses, open the sheet and choose <strong>File → Download → Comma-separated values (.csv)</strong>.</p>
+      </div>
+      <p class="admin-footnote" style="text-align:center;max-width:700px;margin:18px auto 0">Access note: for family members to open the sheet without Google sign-in, its Google Sheets sharing setting must be “Anyone with the link — Viewer.” That setting also means anyone with the direct spreadsheet link can view it; this page password is a convenience gate, not a secure spreadsheet permission.</p>
+    </section>
+    <script>
+      (() => {
+        const form = document.getElementById('familyAccessForm');
+        const password = document.getElementById('familyPassword');
+        const feedback = document.getElementById('familyAccessFeedback');
+        const sheetAccess = document.getElementById('familySheetAccess');
+        const expectedPassword = 'Sivaroshan2026';
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          if (password.value === expectedPassword) {
+            feedback.hidden = true;
+            sheetAccess.hidden = false;
+            form.hidden = true;
+            sheetAccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            sheetAccess.hidden = true;
+            feedback.textContent = 'Incorrect password. Please try again.';
+            feedback.classList.add('error');
+            feedback.hidden = false;
+            password.value = '';
+            password.focus();
+          }
+        });
+      })();
+    </script>
+    <footer class="admin-footer">Sivaroshan &amp; Kirushika · Private family responses</footer>
+  </main>
+</body>
+</html>
