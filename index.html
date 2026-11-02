@@ -41,7 +41,7 @@
       </button>
     </div>
     <div class="opening-bottom-note" data-i18n="openingBottom">A beautiful beginning, blessed by tradition</div>
-    <img class="couple-sticker" src="assets/couple-sticker.webp" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+    <img class="couple-sticker" src="assets/image%20copy.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
     <div class="white-fade" id="whiteFade" aria-hidden="true"></div>
   </section>
 
@@ -59,7 +59,7 @@
             <div class="tamil-family-honorific" id="groomTamilHonorific" hidden>திருவளர் செல்வன்</div>
             <div class="fine-divider"><span>✦</span></div>
             <div class="couple-name-display" id="sectionGroom">Murugan</div>
-            <div class="nickname" id="sectionGroomNick">(Yokesh)</div>
+            <div class="nickname" id="sectionGroomNick">(Yogesh)</div>
           </div>
           <div class="family-separator section-heart" aria-hidden="true"><span>♥</span></div>
           <div class="family-side">
@@ -68,7 +68,7 @@
             <div class="tamil-family-honorific" id="brideTamilHonorific" hidden>திருவளர் செல்வி</div>
             <div class="fine-divider"><span>✦</span></div>
             <div class="couple-name-display" id="sectionBride">Kaviyam</div>
-            <div class="nickname" id="sectionBrideNick">(Kaviya)</div>
+            <div class="nickname bride-nickname-hidden" id="sectionBrideNick" hidden aria-hidden="true"></div>
           </div>
         </div>
         <p class="family-blessing" data-i18n="familyBlessing">With the blessings of our elders, two hearts begin a lifetime together.</p>
@@ -91,7 +91,7 @@
               <span class="revealed-kicker" data-i18n="revealedKicker">PLEASE SAVE THE DATE</span>
               <strong id="dateMain">15 November 2026</strong>
               <span id="dateWeekday">Sunday</span>
-              <span class="date-muhurtham" id="dateMuhurtham" data-i18n="dateMuhurtham">Auspicious time · 9:00 AM – 11:00 AM</span>
+              <span class="date-muhurtham" id="dateMuhurtham" data-i18n="dateMuhurtham">Auspicious time · 10:00 AM – 12:00 PM</span>
             </div>
             <canvas id="scratchCanvas" aria-label="Scratch this golden panel to reveal the engagement date"></canvas>
             <div class="scratch-instruction" id="scratchInstruction" aria-hidden="true">
@@ -126,14 +126,24 @@
         <div class="venue-card glass-card">
           <img class="venue-arch-cutout" src="assets/venue-arch-cutout.webp" alt="Cropped temple mandapam arch with traditional decorations" loading="lazy" />
           <h3 data-i18n="venueName">Bajanai Kovil</h3>
-          <p class="venue-address" data-i18n="venueAddress">Issukkazhi, Katteri,<br />Thiruvannamalai District</p>
+          <p class="venue-address" data-i18n="venueAddress">Issukazhi katteri village,<br />Tiruvannamalai dt 606804</p>
           <div class="venue-details">
             <div><span class="detail-label" data-i18n="weddingDateLabel">Engagement date</span><strong data-i18n="weddingDateValue">Sunday, 15 November 2026</strong></div>
-            <div><span class="detail-label" data-i18n="muhurthamLabel">Auspicious time</span><strong>09:00 AM – 11:00 AM</strong></div>
+            <div><span class="detail-label" data-i18n="muhurthamLabel">Auspicious time</span><strong data-i18n="muhurthamValue">10:00 AM – 12:00 PM</strong></div>
             <div><span class="detail-label" data-i18n="lunchLabel">Occasion</span><strong data-i18n="lunchValue">Engagement ceremony</strong></div>
           </div>
+          <div class="venue-map-embed">
+            <iframe
+              id="venueMapEmbed"
+              title="Venue map — Pillaiyar Kovil, Issukazhi katteri village"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.0240211696955!2d79.16913437519732!3d12.110508033171502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bacba47554082c7%3A0x3864982a4d06f19!2sPillaiyar%20Kovil!5e0!3m2!1sen!2sin!4v1793633394274!5m2!1sen!2sin"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
           <div class="venue-actions">
-            <a class="gold-button" id="openMapLink" href="https://www.google.com/maps/search/?api=1&amp;query=Bajanai+Kovil+Issukkazhi+Katteri+Thiruvannamalai" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">⌖</span><span data-i18n="openMap">OPEN MAP</span></a>
+            <a class="gold-button" id="openMapLink" href="https://www.google.com/maps/search/?api=1&amp;query=12.110508,79.169134" rel="noopener"><span aria-hidden="true">⌖</span><span data-i18n="openMap">OPEN MAP</span></a>
             <button class="outline-button" id="addToCalendar" type="button"><span aria-hidden="true">▦</span><span data-i18n="addCalendar">ADD TO CALENDAR</span></button>
           </div>
         </div>
@@ -155,12 +165,12 @@
     </footer>
   </main>
 
-  <img class="couple-throughout" src="assets/couple-sticker.webp" alt="" aria-hidden="true" decoding="async" />
+  <img class="couple-throughout" src="assets/image%20copy.png" alt="" aria-hidden="true" decoding="async" />
 
   <div class="global-petals" id="globalPetals" aria-hidden="true"></div>
-  <audio id="backgroundMusic" preload="none" loop>
+  <audio id="backgroundMusic" preload="auto" loop>
     <source src="assets/wedding-music-loop-1045-1210.mp3" type="audio/mpeg" />
   </audio>
-  <button class="floating-music" id="musicToggle" type="button" aria-pressed="false" aria-label="Turn background music on"><span class="music-icon" aria-hidden="true">♫</span><span class="music-label" data-i18n="musicOff">MUSIC · OFF</span><span class="music-state" aria-hidden="true">●</span></button>
+  <button class="floating-music is-playing" id="musicToggle" type="button" aria-pressed="true" aria-label="Turn background music off"><span class="music-icon" aria-hidden="true">♫</span><span class="music-label" data-i18n="musicOn">MUSIC · ON</span><span class="music-state" aria-hidden="true">●</span></button>
 </body>
 </html>

@@ -14,7 +14,7 @@
   const backgroundMusic = $('#backgroundMusic');
   let currentLanguage = 'en';
   let toastTimer = null;
-  let musicActive = false;
+  let musicActive = true;
   let submissionInFlight = false;
   let requestKey = getRequestKey();
   let guestCount = 1;
@@ -28,10 +28,11 @@
   let jasmineCreated = false;
   let reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const WEDDING_DATE = new Date('2026-11-15T09:00:00+05:30');
+  const WEDDING_DATE = new Date('2026-11-15T10:00:00+05:30');
   const VENUE_NAME = 'Bajanai Kovil';
-  const VENUE_ADDRESS = 'Issukkazhi, Katteri, Thiruvannamalai District';
-  const MAP_URL = 'https://www.google.com/maps/search/?api=1&query=Bajanai+Kovil+Issukkazhi+Katteri+Thiruvannamalai';
+  const VENUE_ADDRESS = 'Issukazhi katteri village, Tiruvannamalai dt 606804';
+  const MAP_EMBED_URL = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.0240211696955!2d79.16913437519732!3d12.110508033171502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bacba47554082c7%3A0x3864982a4d06f19!2sPillaiyar%20Kovil!5e0!3m2!1sen!2sin!4v1793633394274!5m2!1sen!2sin';
+  const MAP_URL = 'https://www.google.com/maps/search/?api=1&query=12.110508,79.169134';
   const SCRATCH_REVEAL_THRESHOLD = 0.75;
   // Public Apps Script endpoint accepts new RSVP rows; the connected spreadsheet stays private.
   const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwQJSz6AsZmydlI31o_LFmOHJkWiforfcWzSHhB7B6djySRjK470LebH1uN18iws26k/exec';
@@ -40,8 +41,8 @@
     en: {
       openingMantra:'Aum · Sivamayam', openingEyebrow:'Together with our families', clickToOpen:'CLICK TO OPEN', openingBottom:'A joyful engagement, blessed by tradition',
       sectionOneEyebrow:'Together with our families', sectionOneTitle:'Our Engagement Celebration', familyBlessing:'With the blessings of our elders, we joyfully invite you to our engagement.', groomSide:'The beloved son of', brideSide:'The beloved daughter of', scrollExplore:'SCROLL TO EXPLORE',
-      dateEyebrow:'A moment to remember', dateTitle:'Our Engagement Date', dateIntro:'Gently scratch the golden surface to reveal our engagement day.', revealedKicker:'PLEASE SAVE THE DATE', dateMain:'15 November 2026', dateWeekday:'Sunday', dateMuhurtham:'Auspicious time · 9:00 AM – 11:00 AM', scratchToReveal:'SCRATCH HERE', scratchHint:'Use your finger or mouse', tapReveal:'Tap to reveal instead', countdownTitle:'Our Engagement In', days:'Days', hours:'Hours', minutes:'Minutes', seconds:'Seconds', countdownFootnote:'',
-      venueEyebrow:'Join us for the celebration', venueTitle:'Engagement Venue & Directions', venueName:'Bajanai Kovil', venueAddress:'Issukkazhi, Katteri,<br />Thiruvannamalai District', weddingDateLabel:'Engagement date', weddingDateValue:'Sunday, 15 November 2026', muhurthamLabel:'Auspicious time', lunchLabel:'Occasion', lunchValue:'Engagement ceremony', openMap:'OPEN MAP', addCalendar:'ADD TO CALENDAR', venueNote:'We look forward to celebrating this blessed engagement with you.',
+      dateEyebrow:'A moment to remember', dateTitle:'Our Engagement Date', dateIntro:'Gently scratch the golden surface to reveal our engagement day.', revealedKicker:'PLEASE SAVE THE DATE', dateMain:'15 November 2026', dateWeekday:'Sunday', dateMuhurtham:'Auspicious time · 10:00 AM – 12:00 PM', scratchToReveal:'SCRATCH HERE', scratchHint:'Use your finger or mouse', tapReveal:'Tap to reveal instead', countdownTitle:'Our Engagement In', days:'Days', hours:'Hours', minutes:'Minutes', seconds:'Seconds', countdownFootnote:'',
+      venueEyebrow:'Join us for the celebration', venueTitle:'Engagement Venue & Directions', venueName:'Bajanai Kovil', venueAddress:'Issukazhi katteri village,<br />Tiruvannamalai dt 606804', weddingDateLabel:'Engagement date', weddingDateValue:'Sunday, 15 November 2026', muhurthamLabel:'Auspicious time', muhurthamValue:'10:00 AM – 12:00 PM', lunchLabel:'Occasion', lunchValue:'Engagement ceremony', openMap:'OPEN MAP', addCalendar:'ADD TO CALENDAR', venueNote:'We look forward to celebrating this blessed engagement with you.',
       rsvpEyebrow:'Your presence is a blessing', rsvpTitle:'Guest Wishes and Message', rsvpIntro:"Please let us know if you'll be joining us, and leave a wish if you cannot attend.", guestNameLabel:'Name of the person <span class="required-star">*</span>', guestNamePlaceholder:'Enter your name', attendingQuestion:'Will you be attending? <span class="required-star">*</span>', attendYes:"Yes, I'll attend", attendNo:"No, I can't attend", guestCountLabel:'How many guests will attend, including you? <span class="required-star">*</span>', guestCountHint:'Including you · Maximum 10 guests', guestMessageLabel:'Send us a message or your wishes <span class="optional-label">(optional)</span>', guestMessagePlaceholder:'Write a message for the couple…', submitRsvp:'SUBMIT RSVP', privacyNote:'Your response and message are private and will only be visible to the couple.', familyAdmin:'Family access · Admin',
       shareTitle:'Share Our Joy', shareIntro:'Help us share this special day with family and friends.', shareWhatsApp:'SHARE ON WHATSAPP', copyLink:'COPY INVITATION LINK', scanToOpen:'Scan to open the invitation', qrNote:'Once published, this QR code will point to the live website address.', openQr:'Open QR code to save', footerBlessing:'With love, Murugan & Kaviyam', footerTitle:'With Love', madeWithLove:'Made with love', musicOn:'MUSIC · ON', musicOff:'MUSIC · OFF',
       formRequired:'Please enter your name and select your attendance.', countRequired:'Please choose a guest count from 1 to 10.', submitFailed:'We could not save your response just now. Please check your connection and try again.', rsvpStorageSetupTitle:'RSVP storage is not connected yet.', rsvpStorageSetupDesc:'Your response was not saved. Please contact the couple so they can finish setting up private storage.', rsvpServiceUnavailable:'The RSVP service is temporarily unavailable. Your response was not saved; please try again later.',
@@ -49,21 +50,21 @@
       musicFailed:'The background music could not be loaded. Please check your connection and try again.', linkCopied:'Invitation link copied.', copyFailed:'Copy failed. You can copy the website link from your browser address bar.', calendarReady:'Your calendar event is ready.', qrPreview:'The QR code will point to the published website address. Deploy this project to Vercel to create the guest-ready QR code.', revealDone:'The engagement date is revealed!', weddingPassed:'The auspicious time has begun — today is your special day!', weddingComplete:'With gratitude, thank you for celebrating our engagement.', adminSetup:'Admin access is not configured yet. Set ADMIN_PASSWORD and SESSION_SECRET in Vercel project settings, then redeploy.'
     },
     ta: {
-      openingMantra:'ஓம் · சிவமயம்', openingEyebrow:'எங்கள் குடும்பத்தினருடன்', clickToOpen:'அழைப்பிதழைத் திறக்கவும்', openingBottom:'மரபின் ஆசீர்வாதத்துடன் ஒரு அழகான தொடக்கம்',
-      sectionOneEyebrow:'எங்கள் குடும்பத்துடன்', sectionOneTitle:'எங்கள் நிச்சயதார்த்த விழா', familyBlessing:'மூத்தோரின் ஆசீர்வாதத்துடன், எங்கள் நிச்சயதார்த்தத்திற்கு உங்களை அன்புடன் அழைக்கின்றோம்.', groomSide:'அன்பு மகன்', brideSide:'அன்பு மகள்', scrollExplore:'கீழே தொடரவும்',
-      dateEyebrow:'நினைவில் நிற்கும் தருணம்', dateTitle:'எங்கள் நிச்சயதார்த்த நாள்', dateIntro:'தங்க நிற அட்டையை மெதுவாகச் சுரண்டி எங்கள் நிச்சயதார்த்த நாளைக் காணுங்கள்.', revealedKicker:'இந்த நாளைக் குறித்து வைத்துக்கொள்ளுங்கள்', dateMain:'15 நவம்பர் 2026', dateWeekday:'ஞாயிற்றுக்கிழமை', dateMuhurtham:'முகூர்த்த நேரம் · காலை 9:00 – 11:00', scratchToReveal:'இங்கே சுரண்டவும்', scratchHint:'விரல் அல்லது மவுஸ் பயன்படுத்தவும்', tapReveal:'திறக்க இங்கே தட்டவும்', countdownTitle:'நிச்சயதார்த்தத்திற்கு இன்னும்', days:'நாட்கள்', hours:'மணி', minutes:'நிமிடங்கள்', seconds:'விநாடிகள்', countdownFootnote:'',
-      venueEyebrow:'நிச்சயதார்த்த விழாவில் கலந்து கொண்டு மகிழுங்கள்', venueTitle:'நிச்சயதார்த்த இடம் மற்றும் வழித்தடம்', venueName:'பஜனை கோவில்', venueAddress:'ஈசுக்கழி, கட்டேரி,<br />திருவஅண்ணாமலை மாவட்டம்', weddingDateLabel:'நிச்சயதார்த்த நாள்', weddingDateValue:'ஞாயிற்றுக்கிழமை, 15 நவம்பர் 2026', muhurthamLabel:'முகூர்த்த நேரம்', lunchLabel:'விழா', lunchValue:'நிச்சயதார்த்த விழா', openMap:'வரைபடத்தைத் திறக்கவும்', addCalendar:'நாள்காட்டியில் சேர்க்கவும்', venueNote:'நிச்சயதார்த்த விழாவில் உங்களுடன் மகிழ்ந்து கொண்டாட ஆவலுடன் இருக்கிறோம்.',
-      rsvpEyebrow:'உங்கள் வருகையே எங்களுக்கு ஆசீர்வாதம்', rsvpTitle:'விருந்தினர் வாழ்த்துகள் மற்றும் செய்திகள்', rsvpIntro:'நீங்கள் வருகை தருகிறீர்களா என்பதைத் தெரிவிக்கவும். வர இயலாவிட்டால் உங்கள் வாழ்த்துகளைப் பகிரலாம்.', guestNameLabel:'நபரின் பெயர் <span class="required-star">*</span>', guestNamePlaceholder:'உங்கள் பெயரை உள்ளிடவும்', attendingQuestion:'நீங்கள் திருமணத்திற்கு வருகை தருவீர்களா? <span class="required-star">*</span>', attendYes:'ஆம், வருகை தருவேன்', attendNo:'இல்லை, வர இயலாது', guestCountLabel:'உங்களையும் சேர்த்து எத்தனை பேர் வருகை தருவீர்கள்? <span class="required-star">*</span>', guestCountHint:'உங்களையும் சேர்த்து · அதிகபட்சம் 10 பேர்', guestMessageLabel:'செய்தி அல்லது வாழ்த்துகளை அனுப்பவும் <span class="optional-label">(விருப்பம்)</span>', guestMessagePlaceholder:'மணமக்களுக்கு ஒரு செய்தியை எழுதுங்கள்…', submitRsvp:'பதிலைச் சமர்ப்பிக்கவும்', privacyNote:'உங்கள் பதிலும் செய்தியும் தனிப்பட்டவை; மணமக்கள் மட்டுமே அவற்றைப் பார்க்க முடியும்.', familyAdmin:'குடும்ப அணுகல் · நிர்வாகம்',
-      shareTitle:'எங்கள் மகிழ்வைப் பகிருங்கள்', shareIntro:'இந்தச் சிறப்பு நாளை குடும்பத்தினர் மற்றும் நண்பர்களுடன் பகிருங்கள்.', shareWhatsApp:'வாட்ஸ்அப்பில் பகிரவும்', copyLink:'அழைப்பிதழ் இணைப்பை நகலெடுக்கவும்', scanToOpen:'அழைப்பிதழைத் திறக்க ஸ்கேன் செய்யவும்', qrNote:'வெளியிடப்பட்டதும், இந்த QR குறியீடு நேரடி இணையதளத்தைத் திறக்கும்.', openQr:'சேமிக்க QR குறியீட்டைத் திறக்கவும்', footerBlessing:'அன்புடன், முருகன் & கவியம்', footerTitle:'அன்புடன்', madeWithLove:'அன்புடன் உருவாக்கப்பட்டது', musicOn:'இசை · இயங்குகிறது', musicOff:'இசை · நிறுத்தப்பட்டது',
-      formRequired:'உங்கள் பெயரை உள்ளிட்டு வருகை நிலையைத் தேர்ந்தெடுக்கவும்.', countRequired:'1 முதல் 10 வரை விருந்தினர் எண்ணிக்கையைத் தேர்ந்தெடுக்கவும்.', submitFailed:'உங்கள் பதிலை இப்போது சேமிக்க முடியவில்லை. இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.', rsvpStorageSetupTitle:'விருந்தினர் பதில்களைச் சேமிக்கும் வசதி இன்னும் இணைக்கப்படவில்லை.', rsvpStorageSetupDesc:'உங்கள் பதில் சேமிக்கப்படவில்லை. தனிப்பட்ட சேமிப்பை அமைக்க மணமக்களைத் தொடர்புகொள்ளவும்.', rsvpServiceUnavailable:'பதில் அனுப்பும் சேவை தற்காலிகமாக கிடைக்கவில்லை. உங்கள் பதில் சேமிக்கப்படவில்லை; பின்னர் மீண்டும் முயற்சிக்கவும்.',
-      thankAttend:'{name}, வருகையை உறுதிப்படுத்தியதற்கு நன்றி! Serendib Grand, Colombo 10-இல் உங்களையும் உங்கள் விருந்தினர்களையும் வரவேற்க ஆவலாக உள்ளோம்.', thankNotAttend:'{name}, நன்றி. நீங்கள் வராதது எங்களுக்கு வருத்தமாக இருக்கும்!', thankMessage:'உங்கள் அன்பான செய்திக்கும் வாழ்த்துகளுக்கும் நன்றி.', savedTitle:'உங்கள் பதில் பதிவு செய்யப்பட்டது', thanksClose:'மூடவும்',
-      musicFailed:'பின்னணி இசையை இயக்க முடியவில்லை. இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.', linkCopied:'அழைப்பிதழ் இணைப்பு நகலெடுக்கப்பட்டது.', copyFailed:'நகலெடுக்க முடியவில்லை. உலாவியின் முகவரிப் பட்டியிலிருந்து இணைய இணைப்பை நகலெடுக்கலாம்.', calendarReady:'நாள்காட்டி நிகழ்வு தயார்.', qrPreview:'QR குறியீடு நேரடி இணையதள முகவரியைத் திறக்கும். விருந்தினர்களுக்கான QR குறியீட்டை உருவாக்க Vercel-இல் வெளியிடவும்.', revealDone:'நிச்சயதார்த்த தேதி வெளிப்பட்டது!', weddingPassed:'மங்கள நேரம் தொடங்கிவிட்டது — இன்று உங்கள் சிறப்பு நாள்!', weddingComplete:'எங்கள் நிச்சயதார்த்தத்தைக் கொண்டாடியதற்கு மனமார்ந்த நன்றி.', adminSetup:'நிர்வாக அணுகல் இன்னும் அமைக்கப்படவில்லை. Vercel திட்ட அமைப்புகளில் ADMIN_PASSWORD மற்றும் SESSION_SECRET அமைத்து மீண்டும் வெளியிடவும்.'
+      openingMantra:'ஓம் · சிவமயம்', openingEyebrow:'எங்கள் குடும்பத்தினருடன்', clickToOpen:'அழைப்பிதழைத் திறக்கவும்', openingBottom:'மரபின் ஆசீர்வாதத்துடன் ஒரு இனிய தொடக்கம்',
+      sectionOneEyebrow:'எங்கள் குடும்பத்தினருடன்', sectionOneTitle:'எங்கள் நிச்சயதார்த்த விழா', familyBlessing:'பெரியோர்களின் நல்லாசியுடன், எங்கள் நிச்சயதார்த்த விழாவில் தாங்கள் குடும்பத்துடன் கலந்து கொண்டு எங்களை வாழ்த்தி மகிழ அன்புடன் அழைக்கின்றோம்.', groomSide:'அன்பிற்கினிய மகன்', brideSide:'அன்பிற்கினிய மகள்', scrollExplore:'மேலும் காண கீழே செல்லவும்',
+      dateEyebrow:'நினைவில் நிற்கும் இனிய தருணம்', dateTitle:'எங்கள் நிச்சயதார்த்த நாள்', dateIntro:'தங்க நிற அட்டையை மெதுவாகத் தேய்த்து, எங்கள் நிச்சயதார்த்த நாளைக் காணுங்கள்.', revealedKicker:'இந்த நாளைக் குறித்து வைத்துக்கொள்ளுங்கள்', dateMain:'15 நவம்பர் 2026', dateWeekday:'ஞாயிற்றுக்கிழமை', dateMuhurtham:'மங்களகரமான நேரம் · காலை 10:00 – 12:00', scratchToReveal:'இங்கே தேய்க்கவும்', scratchHint:'விரலால் அல்லது மவுஸ் மூலம் தேய்க்கவும்', tapReveal:'தேதியைக் காண இங்கே தட்டவும்', countdownTitle:'நிச்சயதார்த்தத்திற்கு இன்னும்', days:'நாட்கள்', hours:'மணிநேரம்', minutes:'நிமிடங்கள்', seconds:'விநாடிகள்', countdownFootnote:'',
+      venueEyebrow:'எங்கள் மகிழ்ச்சியில் பங்கேற்க வாருங்கள்', venueTitle:'நிச்சயதார்த்த விழா நடைபெறும் இடம்', venueName:'பஜனை கோவில்', venueAddress:'இசுக்கழி காட்டேரி கிராமம்,<br />திருவண்ணாமலை மாவட்டம் – 606804', weddingDateLabel:'நிச்சயதார்த்த நாள்', weddingDateValue:'ஞாயிற்றுக்கிழமை, 15 நவம்பர் 2026', muhurthamLabel:'மங்களகரமான நேரம்', muhurthamValue:'காலை 10:00 – 12:00', lunchLabel:'நிகழ்வு', lunchValue:'நிச்சயதார்த்த விழா', openMap:'வழித்தடத்தைக் காண்க', addCalendar:'நாள்காட்டியில் சேர்க்கவும்', venueNote:'இந்த இனிய நிச்சயதார்த்த விழாவில் தங்களுடன் இணைந்து மகிழ்ச்சியைக் கொண்டாட ஆவலுடன் காத்திருக்கிறோம்.',
+      rsvpEyebrow:'தங்கள் வருகையே எங்களுக்கு மகிழ்ச்சி', rsvpTitle:'வருகை உறுதிப்படுத்தல் மற்றும் வாழ்த்துச் செய்திகள்', rsvpIntro:'தாங்கள் விழாவில் கலந்து கொள்வீர்களா என்பதைத் தெரிவிக்கவும். வர இயலாவிட்டாலும், தங்களின் அன்பான வாழ்த்துகளைப் பகிர்ந்து கொள்ளுங்கள்.', guestNameLabel:'தங்கள் பெயர் <span class="required-star">*</span>', guestNamePlaceholder:'தங்கள் பெயரை உள்ளிடவும்', attendingQuestion:'தாங்கள் நிச்சயதார்த்த விழாவில் கலந்து கொள்வீர்களா? <span class="required-star">*</span>', attendYes:'ஆம், நிச்சயமாக வருகிறேன்', attendNo:'மன்னிக்கவும், வர இயலாது', guestCountLabel:'தங்களையும் சேர்த்து எத்தனை பேர் வருகை தருவீர்கள்? <span class="required-star">*</span>', guestCountHint:'தங்களையும் சேர்த்து · அதிகபட்சம் 10 பேர்', guestMessageLabel:'செய்தி அல்லது வாழ்த்துகளைப் பகிருங்கள் <span class="optional-label">(விருப்பத்திற்கேற்ப)</span>', guestMessagePlaceholder:'எங்களுக்காக ஒரு அன்பான வாழ்த்துச் செய்தியை எழுதுங்கள்…', submitRsvp:'பதிலைச் சமர்ப்பிக்கவும்', privacyNote:'தங்களின் பதிலும் செய்தியும் தனிப்பட்ட முறையில் பாதுகாக்கப்படும். மணமக்கள் மட்டுமே அவற்றைப் பார்க்க முடியும்.', familyAdmin:'குடும்ப அணுகல் · நிர்வாகம்',
+      shareTitle:'எங்கள் மகிழ்ச்சியைப் பகிருங்கள்', shareIntro:'இந்த இனிய நாளைத் தங்கள் குடும்பத்தினர் மற்றும் நண்பர்களுடன் பகிர்ந்து கொள்ளுங்கள்.', shareWhatsApp:'வாட்ஸ்அப்பில் பகிரவும்', copyLink:'அழைப்பிதழ் இணைப்பை நகலெடுக்கவும்', scanToOpen:'அழைப்பிதழைத் திறக்க ஸ்கேன் செய்யவும்', qrNote:'இணையதளத்தை வெளியிட்ட பிறகு, இந்த QR குறியீடு நேரடி அழைப்பிதழைத் திறக்கும்.', openQr:'சேமிக்க QR குறியீட்டைத் திறக்கவும்', footerBlessing:'அன்புடன், முருகன் & காவியம்', footerTitle:'அன்புடன்', madeWithLove:'அன்புடன் உருவாக்கப்பட்டது', musicOn:'இசை · இயங்குகிறது', musicOff:'இசை · நிறுத்தப்பட்டுள்ளது',
+      formRequired:'தங்களின் பெயரை உள்ளிட்டு, வருகை நிலையைத் தேர்வு செய்யவும்.', countRequired:'1 முதல் 10 வரையிலான விருந்தினர் எண்ணிக்கையைத் தேர்வு செய்யவும்.', submitFailed:'தங்களின் பதிலை இப்போது சேமிக்க முடியவில்லை. இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.', rsvpStorageSetupTitle:'விருந்தினர் பதில்களைச் சேமிக்கும் வசதி இன்னும் அமைக்கப்படவில்லை.', rsvpStorageSetupDesc:'தங்களின் பதில் சேமிக்கப்படவில்லை. தனிப்பட்ட சேமிப்பு வசதியை அமைக்க மணமக்களைத் தொடர்பு கொள்ளவும்.', rsvpServiceUnavailable:'பதில் அனுப்பும் சேவை தற்காலிகமாகச் செயல்படவில்லை. தங்களின் பதில் சேமிக்கப்படவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.',
+      thankAttend:'{name}, தங்களின் வருகையை உறுதிப்படுத்தியதற்கு மனமார்ந்த நன்றி! பஜனை கோவிலில் நடைபெறும் எங்கள் நிச்சயதார்த்த விழாவில் தங்களையும் தங்கள் குடும்பத்தினரையும் வரவேற்க ஆவலுடன் காத்திருக்கிறோம்.', thankNotAttend:'{name}, தங்களுக்கு மனமார்ந்த நன்றி. தங்களின் வருகையை நிச்சயமாக எதிர்பார்த்திருப்போம்!', thankMessage:'தங்களின் அன்பான வாழ்த்துகளுக்கும் அழகான செய்திக்கும் மனமார்ந்த நன்றி.', savedTitle:'தங்களின் பதில் வெற்றிகரமாகப் பதிவு செய்யப்பட்டது', thanksClose:'மூடவும்',
+      musicFailed:'பின்னணி இசையை இயக்க முடியவில்லை. இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.', linkCopied:'அழைப்பிதழ் இணைப்பு நகலெடுக்கப்பட்டது.', copyFailed:'இணைப்பை நகலெடுக்க முடியவில்லை. உலாவியின் முகவரிப் பட்டியிலிருந்து இணைப்பை நகலெடுக்கவும்.', calendarReady:'நாள்காட்டியில் சேர்ப்பதற்கான நிகழ்வு தயார்.', qrPreview:'இந்த QR குறியீடு வெளியிடப்பட்ட இணையதளத்தின் முகவரியைத் திறக்கும். விருந்தினர்களுடன் பகிர்வதற்கு Vercel-இல் இணையதளத்தை வெளியிடவும்.', revealDone:'எங்கள் நிச்சயதார்த்த நாள் தெரிய வந்துவிட்டது!', weddingPassed:'மங்களகரமான நேரம் தொடங்கிவிட்டது — இன்று எங்கள் வாழ்வின் இனிய நாள்!', weddingComplete:'எங்கள் நிச்சயதார்த்த விழாவில் கலந்து கொண்டு சிறப்பித்த அனைவருக்கும் மனமார்ந்த நன்றி.', adminSetup:'நிர்வாக அணுகல் இன்னும் அமைக்கப்படவில்லை. Vercel திட்ட அமைப்புகளில் ADMIN_PASSWORD மற்றும் SESSION_SECRET ஆகியவற்றை அமைத்து மீண்டும் வெளியிடவும்.'
     }
   };
 
   const nameTranslations = {
-    en: {groom:'Murugan', groomNick:'(Yokesh)', bride:'Kaviyam', brideNick:'(Kaviya)', groomParents:'Mr. Elumalai & Mrs. Dhanalakshmi', brideParents:'Mr. Shanmugam & Mrs. Nalini'},
-    ta: {groom:'முருகன்', groomNick:'(யோகேஷ்)', bride:'கவியம்', brideNick:'(கவியா)', groomParents:'திரு. எழுமலை · திருமதி. தனலக்ஷ்மி', brideParents:'திரு. சன்முகம் · திருமதி. நலிநி'}
+    en: {groom:'Murugan', groomNick:'(Yogesh)', bride:'Kaviyam', groomParents:'Mr. Elumalai & Mrs. Dhanalakshmi', brideParents:'Mr. Shanmugam & Mrs. Nalini'},
+    ta: {groom:'முருகன்', groomNick:'(யோகேஷ்)', bride:'காவியம்', groomParents:'திரு. ஏழுமலை, திருமதி. தனலக்ஷ்மி', brideParents:'திரு. சண்முகம், திருமதி. நளினி'}
   };
 
   function t(key) { return (translations[currentLanguage] && translations[currentLanguage][key]) || translations.en[key] || key; }
@@ -89,7 +90,11 @@
     $('#sectionGroom').textContent = names.groom;
     $('#sectionGroomNick').textContent = names.groomNick;
     $('#sectionBride').textContent = names.bride;
-    $('#sectionBrideNick').textContent = names.brideNick;
+    const brideNickEl = $('#sectionBrideNick');
+    if (brideNickEl) {
+      brideNickEl.textContent = '';
+      brideNickEl.hidden = true;
+    }
     $('#groomParents').textContent = names.groomParents;
     $('#brideParents').textContent = names.brideParents;
     const groomTamilDesignation = $('#groomTamilDesignation');
@@ -104,9 +109,8 @@
     const footerBride = $('#footerBrideName');
     if (footerGroom) footerGroom.textContent = names.groom;
     if (footerBride) footerBride.textContent = names.bride;
-    const mapLink = $('#openMapLink');
-    if (mapLink) mapLink.href = MAP_URL;
-    $('#musicToggle .music-label').textContent = t(musicActive ? 'musicOn' : 'musicOff');
+    syncMapLink();
+    syncMusicToggle(musicActive);
     if (!dateRevealed && scratchMoves === 0) drawScratchSurface();
     updateCountdown();
     if (restoreScrollY !== null) {
@@ -152,7 +156,10 @@
   });
 
   // The language switch affects every authored text region.
-  $('#languageToggle').addEventListener('click', () => setLanguage(currentLanguage === 'en' ? 'ta' : 'en'));
+  $('#languageToggle').addEventListener('click', () => {
+    setLanguage(currentLanguage === 'en' ? 'ta' : 'en');
+    if (musicActive) attemptMusicPlayback(false);
+  });
 
   // Keep the shared couple cutout visible through the invitation, with a compact size in the footer.
   const footerSectionForImage = $('#shareSection');
@@ -164,44 +171,50 @@
     footerImageObserver.observe(footerSectionForImage);
   }
 
-  // Persistent music controls. Audio playback will only be attempted after a direct user action.
   backgroundMusic.volume = 0.22;
+  function syncMusicToggle(isPlaying) {
+    const toggle = $('#musicToggle');
+    if (!toggle) return;
+    toggle.classList.toggle('is-playing', isPlaying);
+    toggle.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+    toggle.setAttribute('aria-label', isPlaying
+      ? (currentLanguage === 'en' ? 'Turn background music off' : 'பின்னணி இசையை நிறுத்தவும்')
+      : (currentLanguage === 'en' ? 'Turn background music on' : 'பின்னணி இசையை இயக்கவும்'));
+    toggle.querySelector('.music-label').textContent = t(isPlaying ? 'musicOn' : 'musicOff');
+  }
   async function attemptMusicPlayback(showErrors = true) {
     try {
       await backgroundMusic.play();
       musicActive = true;
-      $('#musicToggle').classList.add('is-playing');
-      $('#musicToggle').setAttribute('aria-pressed','true');
-      $('#musicToggle').setAttribute('aria-label', currentLanguage === 'en' ? 'Turn background music off' : 'பின்னணி இசையை நிறுத்தவும்');
-      $('#musicToggle .music-label').textContent = t('musicOn');
+      syncMusicToggle(true);
       return true;
     } catch (err) {
-      musicActive = false;
-      $('#musicToggle').classList.remove('is-playing');
-      $('#musicToggle').setAttribute('aria-pressed','false');
-      $('#musicToggle .music-label').textContent = t('musicOff');
-      if (showErrors) showToast(t('musicFailed'));
+      if (showErrors) {
+        musicActive = false;
+        syncMusicToggle(false);
+        showToast(t('musicFailed'));
+      }
       return false;
     }
   }
+  function bindOpeningScreenMusic() {
+    const startMusicFromGesture = () => { attemptMusicPlayback(false); };
+    openingScreen.addEventListener('pointerdown', startMusicFromGesture, { once: true });
+    window.addEventListener('load', () => { attemptMusicPlayback(false); }, { once: true });
+  }
+  bindOpeningScreenMusic();
   $('#musicToggle').addEventListener('click', async () => {
     if (musicActive) {
       backgroundMusic.pause();
       musicActive = false;
-      $('#musicToggle').classList.remove('is-playing');
-      $('#musicToggle').setAttribute('aria-pressed','false');
-      $('#musicToggle').setAttribute('aria-label', currentLanguage === 'en' ? 'Turn background music on' : 'பின்னணி இசையை இயக்கவும்');
-      $('#musicToggle .music-label').textContent = t('musicOff');
+      syncMusicToggle(false);
     } else {
       await attemptMusicPlayback(true);
     }
   });
   backgroundMusic.addEventListener('pause', () => {
-    if (!backgroundMusic.ended) {
-      musicActive = false;
-      $('#musicToggle').classList.remove('is-playing');
-      $('#musicToggle').setAttribute('aria-pressed','false');
-      $('#musicToggle .music-label').textContent = t('musicOff');
+    if (!backgroundMusic.ended && !musicActive) {
+      syncMusicToggle(false);
     }
   });
 
@@ -369,10 +382,43 @@
   }
   updateCountdown();setInterval(updateCountdown,1000);
 
-  // Open Google Calendar's event editor prefilled for Colombo local time (UTC+05:30).
-  // 09:00–12:00 on 15 Nov 2026 is 03:30–06:30 UTC. Guests confirm/save in their calendar.
+  function syncMapLink() {
+    const mapLink = $('#openMapLink');
+    if (mapLink) {
+      mapLink.href = MAP_URL;
+      mapLink.setAttribute('rel', 'noopener');
+    }
+    const mapEmbed = $('#venueMapEmbed');
+    if (mapEmbed && mapEmbed.src !== MAP_EMBED_URL) mapEmbed.src = MAP_EMBED_URL;
+  }
+
+  function openVenueMap(event) {
+    if (event) event.preventDefault();
+    const pinUrl = MAP_URL;
+    const isMobile = window.matchMedia('(max-width: 760px)').matches
+      || window.matchMedia('(pointer: coarse)').matches
+      || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    if (isMobile) {
+      window.location.assign(pinUrl);
+      return;
+    }
+    const mapWindow = window.open(pinUrl, '_blank', 'noopener');
+    if (!mapWindow) {
+      window.location.assign(pinUrl);
+    }
+  }
+
+  const mapLink = $('#openMapLink');
+  if (mapLink) {
+    syncMapLink();
+    mapLink.addEventListener('click', openVenueMap);
+  }
+
+  // Open Google Calendar's event editor prefilled for IST (UTC+05:30).
+  // 10:00–12:00 on 15 Nov 2026 is 04:30–06:30 UTC. Guests confirm/save in their calendar.
   $('#addToCalendar').addEventListener('click',()=>{
-    const params=new URLSearchParams({action:'TEMPLATE',text:currentLanguage==='ta'?'முருகன் & கவியம் — நிச்சயதார்த்தம்':'Murugan & Kaviyam — Engagement',dates:'20261115T033000Z/20261115T053000Z',details:currentLanguage==='ta'?'நிச்சயதார்த்த நேரம்: காலை 09:00 முதல் 11:00 வரை.':'Engagement ceremony from 9:00 AM to 11:00 AM.',location:`${VENUE_NAME}, ${VENUE_ADDRESS}`,sf:'true',output:'html'});
+    const mapLine = currentLanguage === 'ta' ? `வரைபடம்: ${MAP_URL}` : `Map: ${MAP_URL}`;
+    const params=new URLSearchParams({action:'TEMPLATE',text:currentLanguage==='ta'?'முருகன் & காவியம் — நிச்சயதார்த்தம்':'Murugan & Kaviyam — Engagement',dates:'20261115T043000Z/20261115T063000Z',details:`${currentLanguage==='ta'?'நிச்சயதார்த்த நேரம்: காலை 10:00 முதல் 12:00 வரை.':'Engagement ceremony from 10:00 AM to 12:00 PM.'}\n${mapLine}`,location:`${VENUE_NAME}, ${VENUE_ADDRESS}`,sf:'true',output:'html'});
     window.open(`https://calendar.google.com/calendar/render?${params.toString()}`,'_blank','noopener,noreferrer');
     showToast(t('calendarReady'));
   });
@@ -469,6 +515,8 @@
     });
     updateFormFlow();
   }
+
+  syncMusicToggle(true);
 
   // First paint and language state.
   setLanguage('en');
